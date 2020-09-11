@@ -1,2 +1,2 @@
 rwby是一个科幻动漫专题介绍网站，作为一前端初学者，玩玩哈，运行HTML即可
-personnelM.7z是一个基于PHP的管理系统，使用thinkPHP框架，一个MVC框架
+personnelM是一个基于PHP的管理系统，使用thinkPHP框架，一个MVC框架

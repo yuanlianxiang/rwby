@@ -1,0 +1,63 @@
+<include file="Common/header" title="管理员列表" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <div class="content">
+        <div class="content-top">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info" onclick="addManager();">添加</button>
+                <button type="button" class="btn btn-info"><a href="{:U('manager/index')}" class="col-md-2">全部</a></button>
+            </div>
+            <div class="col-md-4" style="float:right;">
+                <form action="{:U('manager/index')}" method="post">
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control" name="key" placeholder="输入用户名关键词搜索">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>用户名</td>
+                    <td>注册时间</td>
+                    <td>上次登陆</td>
+                    <td>登陆IP</td>
+                    <td>类型</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="manager" item="v">
+                    <tr>
+                        <td>{$v.id}</td>
+                        <td>{$v.username}</td>
+                        <td>{$v.create_at|date="Y/m/d H:i:s",###}</td>
+                        <td>{$v.update_at|date="Y/m/d H:i:s",###}</td>
+                        <td>{$v.login_ip}</td>
+                        <td>
+                        <if condition="$v.type eq 0"> <span class="label label-success">管理员</span>
+                                <elseif condition="$v.type eq 1"/><span class="label label-danger">超级管理员</span>
+                            </if>
+                        </td> 
+                        <td><if condition="$v.status eq 1">正常<else/><span style="color:red">禁用</span></if></td>
+                        <if condition="$v.status eq 1">	
+                           <td><a style="margin-right: 10px;"><span class="label label-info" onclick="updateManager({$v.id})">编辑</span></a> <a href="{:U('manager/control?id=')}{$v.id}" style="color:red;" onclick="javascript:return del('禁用后用户将不能登陆后台!\n\n请确认!!!');"><span class="label label-warning">禁用</span></a></td>
+                           <else/>
+                           <td><a style="margin-right: 10px;"><span class="label label-info" onclick="updateManager({$v.id})">编辑</span></a> <a href="{:U('manager/control?id=')}{$v.id}" style="color:#50AD1E;"><span class="label label-success">启用</span></a></td>
+                       </if>
+                   </tr>
+               </foreach>
+           </tbody>
+       </table>
+       <div class="green-black">{$page}</div>
+   </div>
+</div>
+<include file="add" />
+<include file="update" />
+<include file="Common/footer" />

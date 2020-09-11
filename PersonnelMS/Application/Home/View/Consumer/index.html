@@ -1,0 +1,47 @@
+<include file="Common/header" title="用户列表" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <foreach name="consumer" item="v">
+        <div class="row">
+            <div class="col-xs-4 feature">
+                <div class="product-container">
+                    <div class="name">个 人 信 息</div>
+                    <div class="intro">
+                        <span class="label col-md-4">编 号</span>
+                        <span class="percent col-md-6">{$v.id}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">姓 名</span>
+                        <span class="percent col-md-6">{$v.username}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">性 别</span>
+                        <span class="percent col-md-6">{$v.sex}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">年 龄</span>
+                        <span class="percent col-md-6">{$v.age}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">部 门</span>
+                        <span class="percent col-md-6">{$v.department}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">职 务</span>
+                        <span class="percent col-md-6">{$v.job}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">地 址</span>
+                        <span class="percent col-md-6">{$v.address}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">日 期</span>
+                        <span class="percent col-md-6">{$v.date}</span>
+                    </div>
+                    <div class="strong">态度认真 积累财富</div>
+                </div>
+            </div>
+        </div>
+    </foreach>
+</div>
+<include file="Common/footer" />

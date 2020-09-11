@@ -1,0 +1,36 @@
+ <nav id="side-left" class="span3 navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <div class="user-image">
+            <span><img alt="image" class="img-circle" src="__PUBLIC__/images/profile_small.jpg"/></span>
+        </div>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <!-- <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <span class="nav-label">用户管理</span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{:U('consumer/index')}"><i class="icon-user"></i>  <span class="nav-label">员工信息</span></a></li>
+                    <li><a href="{:U('manager/index')}"><i class="icon-cog"></i>  <span class="nav-label">管理员</span> </a></li>
+                </ul></li> -->
+            <li class="dropdown">
+                <a href="{:U('consumer/index')}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="nav-label">员工管理</span></a>
+            </li>       
+            <li class="dropdown">
+                <a href="{:U('department/index')}"><span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span><span class="nav-label">部门管理</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="{:U('salary/index')}"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span class="nav-label">工资管理</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="{:U('attendance/index')}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><span class="nav-label">考勤管理</span> </a>
+            </li>
+            <li class="dropdown">
+                <a href="{:U('leave/index')}"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><span class="nav-label">请假管理</span></a>  
+            </li>
+            <li class="dropdown">
+                <a href="{:U('manager/index')}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="nav-label">用户管理</span> </a>
+            </li>
+        </ul>         
+    </div>>
+</nav>   

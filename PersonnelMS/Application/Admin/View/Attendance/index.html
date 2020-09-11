@@ -1,0 +1,48 @@
+<include file="Common/header" title="考勤列表" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <div class="content">
+        <div class="content-top">
+            <div class="col-md-4">
+             <button type="button" class="btn btn-info"><a href="{:U('attendance/index')}" class="col-md-2">全部</a></button>
+         </div>
+         <div class="col-md-4" style="float:right;">
+            <form action="{:U('attendance/index')}" method="post">
+                <div class="form-group input-group">
+                    <input type="text" class="form-control" name="key" placeholder="输入用户名关键词搜索">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <td>编号</td>
+                <td>姓名</td>
+                <td>签到</td>
+                <td>签退</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name="attendance" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.username}</td>
+                    <td>{$v.up|date="Y/m/d H:i:s",###}</td>
+                    <td>{$v.down|date="Y/m/d H:i:s",###}</td>
+                    <td><span class="label label-success">{$v.status}</span></td>
+                    <td><a href="{:U('attendance/delete?id=')}{$v.id}" style="color:red;" onclick="javascript:return del('删除后用户将不能登陆!\n\n请确认!!!');"><span class="label label-warning">删除</span></a></td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="green-black">{$page}</div>
+</div>
+</div>
+<include file="Common/footer" />

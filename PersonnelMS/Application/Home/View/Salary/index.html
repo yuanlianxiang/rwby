@@ -1,0 +1,101 @@
+<include file="Common/header" title="工资信息" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <foreach name="salary" item="v">
+        <div class="row">
+            <div class="col-xs-4 feature">
+                <div class="product-container">
+                    <div class="name">工 资 信 息</div>
+                    <div class="intro">
+                        <span class="label col-md-4">编&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号</span>
+                        <span class="percent col-md-6">{$v.id}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</span>
+                        <span class="percent col-md-6">{$v.username}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">部&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp门</span>
+                        <span class="percent col-md-6">{$v.department}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp务</span>
+                        <span class="percent col-md-6">{$v.job}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">工&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp资</span>
+                        <span class="percent col-md-6">{$v.salary}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">结算时间</span>
+                        <span class="percent col-md-6">当月15号</span>
+                    </div>
+                    <!-- <div class="intro">
+                        <span class="label col-md-4">年 龄</span>
+                        <span class="percent col-md-6">{$v.age}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">部 门</span>
+                        <span class="percent col-md-6">{$v.department}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">职 务</span>
+                        <span class="percent col-md-6">{$v.job}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">地 址</span>
+                        <span class="percent col-md-6">{$v.address}</span>
+                    </div>
+                    <div class="intro">
+                        <span class="label col-md-4">日 期</span>
+                        <span class="percent col-md-6">{$v.date}</span>
+                    </div> -->
+                    <div class="strong">态度认真 积累财富</div>
+                </div>
+            </div>
+        </div>
+    </foreach>
+    <!-- <div class="content">
+        <div class="content-top">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info"><a href="{:U('salary/index')}" class="col-md-2">全部</a></button>
+            </div>
+            <div class="col-md-4" style="float:right;">
+                <form action="{:U('salary/index')}" method="post">
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control" name="key" placeholder="输入用户名关键词搜索">
+                        <span class="input-group-btn">
+                            <button id="search" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>姓名</td>
+                    <td>部门</td>
+                    <td>职务</td>
+                    <td>结算年月</td>
+                    <td>工资</td>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="salary" item="v">
+                    <tr>
+                        <td>{$v.id}</td>
+                        <td>{$v.username}</td>
+                        <td>{$v.department}</td>
+                        <td>{$v.job}</td>
+                        <td>{$v.redate}</td>
+                        <td>{$v.salary}</td>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+        <div class="green-black">{$page}</div>
+    </div> -->
+</div>
+<include file="Common/footer" />

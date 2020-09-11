@@ -1,0 +1,151 @@
+<div class="consumer-update" style="display: none;margin-top: 20px;">
+	<form id="updateConsumerForm" class="form-horizontal" action="{:U('consumer/update')}" method="post">
+		<div class="form-group">
+			<label class="col-md-4 control-label">姓名</label>
+			<div class="col-md-6">
+				<input class="form-control" type="text" name="username" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">性别</label>
+			<div class="col-md-6">
+				<select class="form-control" id="sex" name="sex">
+					<option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">年龄</label>
+			<div class="col-md-6">
+				<input class="form-control" type="text" name="age"/>   
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">部门</label>
+			<div class="col-md-6">
+				<select class="form-control" id="department" name="department">
+					<volist name="delist" id="item">
+						<option value="{$item.id}">{$item.name}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">职务</label>
+			<div class="col-md-6">
+				<select class="form-control" id="job" name="job">
+					<option value="办公室助理">办公室助理</option>
+					<option value="会计">会计</option>
+					<option value="出纳">出纳</option>
+					<option value="销售部助理">销售部助理</option>
+					<option value="销售顾问">销售顾问</option>
+					<option value="销售内勤">销售内勤</option>
+					<option value="薪酬分析师">薪酬分析师</option>
+					<option value="人力专员">人力专员</option>
+					<option value="行政助理">行政助理</option>
+					<option value="行政文员">行政文员</option>
+					<option value="架构师">架构师</option>
+					<option value="java工程师">java工程师</option>
+					<option value="web前端工程师">web前端工程师</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">地址</label>
+			<div class="col-md-6">
+				<input class="form-control" type="text" name="address" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">工资</label>
+			<div class="col-md-6">
+				<input class="form-control" type="text" name="salary" placeholder="请输入工资" required="" aria-required="true"/>
+			</div>
+		</div>
+		<!-- <div class="form-group">
+			<label class="col-md-4 control-label">结算日期</label>
+			<div class="col-md-6">
+				<input class="form-control" type="date" name="redate" />
+			</div>
+		</div> -->
+		<!-- <div class="form-group">
+			<label class="col-md-4 control-label">注册时间</label>
+			<div class="col-md-6">
+				<input class="form-control" type="date" name="date" />
+			</div>
+		</div> -->
+
+		<div class="layui-layer-btn" style="display:none;">
+			<a class="layui-layer-btn0"> <button id="editrole-form-button"  class='layui-layer-btn0 ' style="border:0px;" type='submit'>提交</button></a>
+			<a class="layui-layer-btn1"><button id="editrole-form-cancel" class='layui-layer-btn1' style="border:0px;" type='submit'>取消</button></a>
+		</div>
+	</form>
+</div> 
+<script type="text/javascript">
+	function updateConsumer($id) {
+        //赋值
+        var form=$("#updateConsumerForm");
+        var url ="{:U('consumer/update')}"+'&id='+$id;
+        $.get(url,{},function(data){
+        	var info=data.info.info;
+        	var delist = data.info.delist;
+        	$("select[name='department']", form).empty();
+        	$.each(delist, function (index, obj) {
+        		if (obj == info.department) {
+        			$("select[name='department']", form).append("<option selected value=" + obj + ">" + obj + "</option>");
+        		} else {
+        			$("select[name='department']", form).append("<option value=" + obj + ">" + obj + "</option>");
+        		}
+        	});
+        	$("input[name='username']",form).val(info.username);
+        	$("select[name='sex']", form).val(info.sex);
+        	$("input[name='age']", form).val(info.age);
+        	$("select[name='job']", form).val(info.job);
+        	$("input[name='salary']", form).val(info.salary);
+        	// $("input[name='redate']", form).val(info.redate);
+        	$("input[name='address']", form).val(info.address);
+        	$("input[name='date']", form).val(info.date);
+        }); 
+        layer.open({
+        	type: 1,
+        	area: ['450px', '475px'],
+        	title: '编辑角色',
+        	shade: [0],
+        	skin:'layui-layer-molv',
+	        shadeClose: true, //点击遮罩关闭层
+	        content: $('.consumer-update'), //捕获的DIV
+	        btn: ['保存', '取消'],
+	        cancel: function (index) {
+	        	layer.close(index); 
+	        },
+	        yes: function (index,layer0) {
+	            //绑定提交表单时间
+	            var form = $('#updateConsumerForm');
+	            var url = form.attr('action');
+                var data = {
+                	id:$id,
+                	username: $("input[name='username']", form).val(),
+                	password: $("input[name='password']", form).val(),
+                	sex: $("select[name='sex']", form).val(), 
+                	age: $("input[name='age']", form).val(),
+                	department: $("select[name='department']", form).val(),
+                	job: $("select[name='job']", form).val(),
+                	salary: $("input[name='salary']", form).val(),
+                	// redate: $("input[name='redate']", form).val(),
+                	address: $("input[name='address']", form).val(),
+                	date: $("input[name='date']", form).val()
+                };
+                $.post(url,{info:data}, function (data) {
+                	if (data.status == 1) {
+                		layer.msg(data.info);
+                		window.location.reload();
+                	} else {
+                		layer.close(index);
+                		layer.msg(data.info);
+                	}
+                }, 'json');
+            }
+        });
+    };
+</script>

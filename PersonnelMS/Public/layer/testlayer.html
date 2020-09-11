@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>testlayer</title>
+	<link rel="stylesheet" type="text/css" href="skin/default/layer.css">
+	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+  <script src="layer.js"></script>
+</head>
+<body>
+<div class="btn" id="testlayer">
+	<button type="submit">fsfsd</button>
+</div>
+<div id="fromtest" style="display: none;">
+	<form  action="#" method="get" >
+		<label>fdffdfd</label>
+		<input type="text" name="svgs">
+        <label>fdffdfd</label>
+        <input type="text" name="sdfs">
+	</form>
+</div>
+<script type="text/javascript">
+;!function(){
+	$('#testlayer').on('click', function () {
+        layer.open({
+            type: 1,
+            area: ['540px', '350px'],
+            title: '添加角色',
+            shadeClose: true, //点击遮罩关闭层
+            content: $('#fromtest'), //捕获的DIV
+            btn: ['添加', '取消'],
+        //     cancel: function (index) {
+               
+        //     },
+        //     yes: function () {
+        //         //绑定提交表单时间
+        //         $('#addrole-form-button').trigger('click');
+        //          layer.close(index);
+        //     }
+        });
+  //       layer.open({
+  // type: 1,
+  // //skin: 'layui-layer-rim', //加上边框
+  // area: ['420px', '240px'], //宽高
+  // content: 'html内容'
+    });
+    }();
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<include file="Common/header" title="考勤列表" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <div class="content">
+        <div class="content-top">
+            <div class="col-md-6">
+                <button id="up" type="button" class="btn btn-info" onclick="up()">签到</button>
+                <button id="up" type="button" class="btn btn-info" onclick="down()">签退</button>
+                <button type="button" class="btn btn-info"><a href="{:U('attendance/index')}" class="col-md-2">全部</a></button>
+            </div>
+            <div class="col-md-4" style="float:right;">
+                <form action="{:U('attendance/index')}" method="post">
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control" name="key" placeholder="输入用户名关键词搜索">
+                        <span class="input-group-btn">
+                            <button id="search" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>姓名</td>
+                    <td>签到</td>
+                    <td>签退</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="attendance" item="v">
+                    <tr>
+                        <td>{$v.id}</td>
+                        <td>{$v.username}</td>
+                        <td class="up">{$v.up|date="Y-m-d H:i:s",###}</td>
+                        <td>{$v.down|date="Y-m-d H:i:s",###}</td>
+                        <td><span class="label label-success">{$v.status}</span></td>
+                        <td><a href="{:U('attendance/delete?id=')}{$v.id}" style="color:red;" onclick="javascript:return del('删除后用户将不能看到信息!\n\n请确认!!!');"><span class="label label-warning">删除</span></a></td>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+    </div>
+    <div class="green-black">{$page}</div>
+</div>
+<script type="text/javascript">
+    var date=new Date();
+    var currentp=changeTime(date.toLocaleDateString())+9*3600;
+    var currentn=changeTime(date.toLocaleDateString())+18*3600;
+    var status="正常";
+    function up(){
+        var t=$("table tr:last td:eq(2)").text();
+        //var up = new Date(Date.parse(t.replace(/-/g, "/"))).getTime();
+        // var up = Date.parse(new Date(t));
+        var up = changeTime(t);
+        var nowTime=date.getTime()/1000;
+        var comparep=parseInt(nowTime-currentp);
+        var comparen=parseInt(currentn-nowTime);
+        var check=parseInt(nowTime-up)-12*3600;
+        var url="{:U('attendance/up')}";
+        if (comparep>0 && comparen<0) {
+            status="迟到";
+        }else if(comparen>0){
+            status="缺勤";
+        }
+        if(check>0){
+            $.post(url, {status:status}, function(data){
+                layer.msg(data.info);
+                if (data.status == 1) {
+                    window.location.reload();
+                    // layer.msg(data.info,3000);
+                } else {
+                    layer.close(index);
+                    // layer.msg(data.info,3000);
+                }
+            },'json');
+        }else{
+            layer.msg('今天已经签到');
+        } 
+    };
+    function down(){
+        var t=$("table tr:last td:eq(3)").text();
+        var up=$('.table tr:last').find('td').eq(2).text();
+        var up=changeTime(up);    
+        var down = changeTime(t);
+        var nowTime=new Date().getTime()/1000;
+        var compares=parseInt(currentn-nowTime);
+        var compare=parseInt(currentn-up);
+        var check=parseInt(nowTime-down)-10*3600;
+        var id=$('.table tr:last').find('td:first').text();     
+        var url="{:U('attendance/down')}"+'&id='+id;
+        if (compare<0 && compares<0) {
+            status="早退";
+        }else if(compare>0){
+            status="缺勤";
+        }
+        if(check<0){
+            layer.msg('今天已经签退');
+        }else{
+            $.post(url, {status:status}, function(data){
+                layer.msg(data.info);
+                if (data.status == 1) {
+                    window.location.reload();
+                    // layer.msg(data.info,3000);
+                } else {
+                    layer.close(index);
+                    // layer.msg(data.info,3000);
+                }
+            });
+        }
+    }
+    function changeTime(string) {
+        var f = string.split(' ', 2);
+        var d = (f[0] ? f[0] : '').split('-', 3);
+        var t = (f[1] ? f[1] : '').split(':', 3);
+        return (new Date(
+            parseInt(d[0], 10) || null,
+            (parseInt(d[1], 10) || 1) - 1,
+            parseInt(d[2], 10) || null,
+            parseInt(t[0], 10) || null,
+            parseInt(t[1], 10) || null,
+            parseInt(t[2], 10) || null
+            )).getTime()/1000;
+    }
+</script>
+<include file="Common/footer" />

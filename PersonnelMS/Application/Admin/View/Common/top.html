@@ -1,0 +1,90 @@
+<div class="navbar-user">
+    <div class="nav-left">
+        <a class="navbar-brand" href="{:U('Index/index')}">人事管理系统管理后台</a>
+        <span class="glyphicon glyphicon-list navbar-minimalize" aria-hidden="true" style="color:rgb(239, 239, 239);margin:15px 12px;font-size: 22px;"></span>
+    </div>
+    <div class="nav-right">
+        <div class="dropdown user-dropdown">
+            <img class="img-circle" alt="image" src="__PUBLIC__/images/profile_small.jpg"/>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                你好，{:session('username')}<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="position:absolute;top:5px;margin-left:6px;float: left;font-size: 12px;"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="#" onclick="changePassword()"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span style="margin-left: 15px;">修改密码</span></a></li>               
+                <li><a href="{:U('login/loginOut')}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span><span style="margin-left: 15px;">退出</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="password-change" style="display: none;margin-top: 20px;">
+    <form id="changePassword" class="form-horizontal"  action="{:U('login/changePassword')}" method="post">
+        <div class="form-group">
+            <label class="col-md-4 control-label">姓名</label>
+            <div class="col-md-6">
+                <input class="form-control" type="text" name="username" value="{:session('username')}" required="" aria-required="true"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">旧密码</label>
+            <div class="col-md-6">
+                <input class="form-control" type="password" name="oldpassword" required="" aria-required="true"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">新密码</label>
+            <div class="col-md-6">
+                <input class="form-control" type="password" name="password" required="" aria-required="true"/>
+            </div>
+        </div>
+        <div class="layui-layer-btn" style="display:none;">
+
+            <a class="layui-layer-btn0"> <button id="addrole-form-button"  class='layui-layer-btn0 ' style="border:0px;" type='submit'>提交</button></a>
+
+            <a class="layui-layer-btn1"><button id="addrole-form-cancel" class='layui-layer-btn1' style="border:0px;" type='submit'>取消</button></a>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function changePassword(){
+        layer.open({
+            type: 1,
+            area: ['400px', '300px'],
+            title: '修改密码',
+            shade: [0],
+            skin:'layui-layer-molv',
+            shadeClose: true, //点击遮罩关闭层
+            content: $('.password-change'), //捕获的DIV
+            btn: ['确认', '取消'],
+            cancel: function (index) {
+            },
+            yes: function (index,layer0) {
+                //绑定提交表单时间
+                var form = $('#changePassword');
+                var url = form.attr('action');
+                var username=$("input[name='username']",form).val();
+                var oldpassword=$("input[name='oldpassword']", form).val();
+                var password=$("input[name='password']", form).val();
+                if (oldpassword==password) {
+                    layer.msg('两次密码一样');
+                }else{
+                    $.post(url, {'username':username,'oldpassword':oldpassword,'password':password}, function (data) {
+                        if (data.status == 1) {
+                            layer.msg(data.info);
+                            layer.close(index);
+                            setTimeout(loginLoad,5000);
+                        } else {
+                            layer.close(index);
+                            layer.msg(data.info);
+                        }
+                    }, 'json');  
+                }
+            }
+        });
+    };
+    function loginLoad(){
+        location.href='{:U('Login/index')}';
+    }
+</script>
+
+
+

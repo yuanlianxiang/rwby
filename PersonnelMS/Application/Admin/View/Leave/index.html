@@ -1,0 +1,51 @@
+<include file="Common/header" title="请假列表" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <div class="content">
+        <div class="content-top">
+            <div class="col-md-4">
+             <button type="button" class="btn btn-info"><a href="{:U('leave/index')}" class="col-md-2">全部</a></button>
+         </div>
+         <div class="col-md-4" style="float:right;">
+            <form action="{:U('leave/index')}" method="post">
+                <div class="form-group input-group">
+                    <input type="text" class="form-control" name="key" placeholder="输入用户名关键词搜索">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <td>编号</td>
+                <td>姓名</td>
+                <td>起始日期</td>
+                <td>結束日期</td>
+                <td>请假原因</td>
+                <td>状态</td>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name="leave" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.username}</td>
+                    <td>{$v.start}</td>
+                    <td>{$v.end}</td>
+                    <td>{$v.reason}</td>
+                    <if condition="$v.state eq 1"> 
+                        <td><a href="{:U('leave/approve?id=')}{$v.id}" ><span class="label label-success">已批准</span></a> </td>
+                        <else/>
+                        <td><a href="{:U('leave/approve?id=')}{$v.id}" ><span class="label label-danger">不批准</span></a></td>
+                    </if>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="green-black">{$page}</div>
+</div>
+</div>
+<include file="Common/footer" />

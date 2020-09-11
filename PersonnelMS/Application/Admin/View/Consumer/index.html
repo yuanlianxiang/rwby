@@ -1,0 +1,58 @@
+<include file="Common/header" title="用户列表" />
+<div id="page-wrapper">
+    <include file="Common/sidebar" />
+    <div class="content">
+        <div class="content-top">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-info" onclick="addConsumer();">添加</button>
+                <button type="button" class="btn btn-info"><a href="{:U('consumer/index')}" class="col-md-2">全部</a></button>
+            </div>
+            <div class="col-md-4" style="float:right;">
+                <form action="{:U('consumer/index')}" method="post">
+                    <div class="form-group input-group">
+                        <input type="text" class="form-control" name="key" placeholder="输入用户名关键词搜索">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      </span>
+                  </div>
+              </form>
+          </div> 
+      </div>
+
+      <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <td>编号</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>部门</td>
+                <td>职务</td>
+                <td>地址</td>
+                <td>注册时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name="consumer" item="v">
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.username}</td>
+                    <td>{$v.sex}</td>
+                    <td>{$v.age}</td>
+                    <td>{$v.department}</td>
+                    <td>{$v.job}</td>
+                    <td>{$v.address}</td>
+                    <td>{$v.date}</td>
+                    <td><a style="margin-right: 10px;"><span class="label label-info" onclick="updateConsumer({$v.id})">编辑</span></a>  <a href="{:U('consumer/delete?id=')}{$v.id}" style="color:red;" onclick="javascript:return del('删除后用户将不能登陆!\n\n请确认!!!');"><span class="label label-warning">删除</span></a></td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="green-black">{$page}</div> 
+</div>  
+</div>
+<include file="add" />
+<include file="update" />
+<include file="changePassword" />
+<include file="Common/footer" />
